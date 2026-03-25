@@ -1,0 +1,57 @@
+version: '3.8'
+
+services:
+  backend:
+    build:
+      context: ./Backend
+      dockerfile: Dockerfile
+    container_name: hms-backend
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+      - MONGODB_URI=mongodb://mongo:27017/hms
+      - JWT_SECRET=${JWT_SECRET:-change_this_in_production}
+      - JWT_EXPIRE=7d
+      - FRONTEND_URL=http://localhost
+    depends_on:
+      - mongo
+    restart: unless-stopped
+    networks:
+      - hms-network
+    volumes:
+      - ./Backend/logs:/app/logs
+
+  frontend:
+    build:
+      context: ./Frontend/HMS
+      dockerfile: Dockerfile
+    container_name: hms-frontend
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+    restart: unless-stopped
+    networks:
+      - hms-network
+
+  mongo:
+    image: mongo:7
+    container_name: hms-mongo
+    ports:
+      - "27017:27017"
+    environment:
+      - MONGO_INITDB_DATABASE=hms
+    volumes:
+      - mongo-data:/data/db
+      - ./Backend/init-mongo.js:/docker-entrypoint-initdb.d/init-mongo.js:ro
+    restart: unless-stopped
+    networks:
+      - hms-network
+
+volumes:
+  mongo-data:
+
+networks:
+  hms-network:
+    driver: bridge
