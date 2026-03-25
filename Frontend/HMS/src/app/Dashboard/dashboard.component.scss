@@ -1,0 +1,444 @@
+@use 'sass:color';
+@use 'theme/index' as *;
+
+.dashboard-container {
+  min-height: 100vh;
+  background: $gray-50;
+  padding: $space-6;
+  animation: fadeIn 0.5s ease-out;
+}
+
+.dashboard-header {
+  @include card;
+  margin-bottom: $space-8;
+  @include fade-in-down;
+  animation-delay: 0.1s;
+
+  .header-content {
+    @include flex-between;
+    width: 100%;
+
+    @include respond-to('md') {
+      @include flex-column;
+      align-items: flex-start;
+      gap: $space-4;
+    }
+  }
+
+  .welcome-section {
+    .welcome-title {
+      margin: 0;
+      color: $gray-900;
+      font-size: clamp($text-2xl, 3vw, $text-3xl);
+      font-weight: $font-semibold;
+      @include fade-in;
+    }
+
+    .role-badge {
+      margin: $space-2 0 0 0;
+      display: inline-block;
+      padding: $space-1 $space-4;
+      background: $primary-lighter;
+      color: $primary-dark;
+      border-radius: $radius-full;
+      font-weight: $font-medium;
+      font-size: $text-sm;
+      @include fade-in;
+      animation-delay: 0.2s;
+    }
+  }
+
+  .header-actions {
+    @include flex-center;
+    gap: $space-4;
+
+    .current-time {
+      @include flex-center;
+      gap: $space-2;
+      padding: $space-2 $space-4;
+      background: $gray-50;
+      border-radius: $radius-md;
+      font-size: $text-sm;
+      color: $gray-700;
+      font-weight: $font-medium;
+
+      .time-icon {
+        font-size: 20px;
+        font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      }
+    }
+  }
+}
+
+.dashboard-content {
+  .section-header {
+    margin-bottom: $space-8;
+
+    h2 {
+      margin: 0 0 $space-2 0;
+      color: $gray-900;
+      font-size: $text-2xl;
+      font-weight: $font-semibold;
+    }
+
+    .section-subtitle {
+      color: $gray-600;
+      font-size: $text-sm;
+      margin: 0;
+    }
+  }
+
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: $space-6;
+    margin-bottom: $space-8;
+  }
+
+  .stat-card {
+    @include card;
+    @include flex-start;
+    gap: $space-6;
+    position: relative;
+    overflow: hidden;
+    transition: $transition-base;
+    @include fade-in-up;
+
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba($primary-base, 0.05), transparent);
+      transition: left 0.5s;
+    }
+
+    &:hover {
+      transform: translateY(-8px);
+      box-shadow: $shadow-lg;
+
+      &::before {
+        left: 100%;
+      }
+
+      .stat-icon-wrapper {
+        transform: scale(1.1) rotate(5deg);
+      }
+
+      .stat-icon-glow {
+        opacity: 1;
+        transform: scale(1.3);
+      }
+
+      .stat-hover-effect {
+        opacity: 1;
+      }
+    }
+
+    &[data-index="0"] { animation-delay: 0.1s; }
+    &[data-index="1"] { animation-delay: 0.2s; }
+    &[data-index="2"] { animation-delay: 0.3s; }
+    &[data-index="3"] { animation-delay: 0.4s; }
+
+    .stat-icon-wrapper {
+      position: relative;
+      transition: $transition-transform;
+    }
+
+    .stat-icon {
+      font-size: 48px;
+      width: 90px;
+      height: 90px;
+      @include flex-center;
+      border-radius: $radius-lg;
+      position: relative;
+      z-index: 2;
+      transition: $transition-transform;
+      font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 48;
+
+      &.patients {
+        background: linear-gradient(135deg, $info-light, color.adjust($info-light, $lightness: 5%));
+        color: $info-dark;
+      }
+
+      &.staff {
+        background: linear-gradient(135deg, $primary-lighter, color.adjust($primary-lighter, $lightness: 5%));
+        color: $primary-dark;
+      }
+
+      &.appointments {
+        background: linear-gradient(135deg, $warning-light, color.adjust($warning-light, $lightness: 5%));
+        color: $warning-dark;
+      }
+
+      &.beds {
+        background: linear-gradient(135deg, $success-light, color.adjust($success-light, $lightness: 5%));
+        color: $success-dark;
+      }
+    }
+
+    .stat-icon-glow {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 120px;
+      height: 120px;
+      border-radius: $radius-full;
+      background: radial-gradient(circle, rgba($primary-base, 0.2), transparent);
+      opacity: 0;
+      transition: $transition-base;
+      z-index: 1;
+    }
+
+    .stat-info {
+      flex: 1;
+
+      .stat-value-row {
+        @include flex-between;
+        align-items: baseline;
+        margin-bottom: $space-2;
+
+        h3 {
+          margin: 0;
+          font-size: clamp($text-2xl, 3vw, $text-4xl);
+          color: $gray-900;
+          font-weight: $font-bold;
+          line-height: 1;
+        }
+
+        .stat-trend {
+          font-size: $text-sm;
+          font-weight: $font-semibold;
+          padding: $space-1 $space-2;
+          border-radius: $radius-sm;
+          background: $gray-100;
+          color: $gray-600;
+
+          &.positive {
+            background: $success-light;
+            color: $success-dark;
+          }
+        }
+      }
+
+      p {
+        margin: 0;
+        color: $gray-600;
+        font-size: $text-sm;
+        font-weight: $font-medium;
+      }
+    }
+
+    .stat-hover-effect {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(135deg, rgba($primary-base, 0.03), rgba($primary-light, 0.03));
+      opacity: 0;
+      transition: $transition-base;
+      pointer-events: none;
+    }
+  }
+
+  // Skeleton Loading States
+  .skeleton-grid {
+    .skeleton-card {
+      @include card;
+      @include flex-start;
+      gap: $space-6;
+      @include shimmer;
+      border: none;
+      pointer-events: none;
+
+      .skeleton-icon {
+        width: 90px;
+        height: 90px;
+        border-radius: $radius-lg;
+        background: $gray-200;
+      }
+
+      .skeleton-content {
+        flex: 1;
+
+        .skeleton-line {
+          height: 20px;
+          border-radius: $radius-sm;
+          background: $gray-200;
+          margin-bottom: $space-2;
+
+          &.skeleton-title {
+            width: 60%;
+            height: 32px;
+          }
+
+          &.skeleton-subtitle {
+            width: 40%;
+            height: 16px;
+          }
+        }
+      }
+    }
+  }
+
+  .quick-actions {
+    @include card;
+    @include fade-in-up;
+    animation-delay: 0.2s;
+
+    .action-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: $space-6;
+    }
+
+    .action-card {
+      text-decoration: none;
+      background: $gray-50;
+      padding: $space-8 $space-6;
+      border-radius: $radius-lg;
+      text-align: center;
+      transition: $transition-base;
+      border: $border-width-2 solid transparent;
+      position: relative;
+      overflow: hidden;
+      @include fade-in-up;
+
+      &::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba($primary-base, 0.1), transparent);
+        transition: left 0.5s;
+      }
+
+      &:hover {
+        background: $white;
+        border-color: $primary-base;
+        transform: translateY(-8px);
+        box-shadow: $shadow-lg;
+
+        &::before {
+          left: 100%;
+        }
+
+        .action-icon-wrapper {
+          transform: scale(1.15) rotate(5deg);
+        }
+
+        .action-arrow {
+          transform: translateX(5px);
+          opacity: 1;
+        }
+
+        .action-hover-effect {
+          opacity: 1;
+        }
+      }
+
+      &[data-index="0"] { animation-delay: 0.1s; }
+      &[data-index="1"] { animation-delay: 0.2s; }
+      &[data-index="2"] { animation-delay: 0.3s; }
+      &[data-index="3"] { animation-delay: 0.4s; }
+
+      .action-icon-wrapper {
+        position: relative;
+        display: inline-block;
+        margin-bottom: $space-4;
+        transition: $transition-transform;
+      }
+
+      .action-icon {
+        font-size: 64px;
+        position: relative;
+        z-index: 2;
+        display: block;
+        font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 48;
+      }
+
+      .action-icon-bg {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 100px;
+        height: 100px;
+        border-radius: $radius-full;
+        background: linear-gradient(135deg, $primary-lighter, $primary-light);
+        opacity: 0.3;
+        z-index: 1;
+        transition: $transition-base;
+      }
+
+      h3 {
+        margin: 0 0 $space-2 0;
+        color: $gray-900;
+        font-size: $text-xl;
+        font-weight: $font-semibold;
+        position: relative;
+        z-index: 2;
+      }
+
+      p {
+        margin: 0;
+        color: $gray-600;
+        font-size: $text-sm;
+        position: relative;
+        z-index: 2;
+      }
+
+      .action-arrow {
+        position: absolute;
+        bottom: $space-4;
+        right: $space-4;
+        font-size: 24px;
+        color: $primary-base;
+        opacity: 0;
+        transition: $transition-base;
+        transform: translateX(-5px);
+        font-variation-settings: 'FILL' 0, 'wght' 500, 'GRAD' 0, 'opsz' 24;
+      }
+
+      .action-hover-effect {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: linear-gradient(135deg, rgba($primary-base, 0.05), rgba($primary-light, 0.05));
+        opacity: 0;
+        transition: $transition-base;
+        pointer-events: none;
+      }
+    }
+  }
+
+  .loading {
+    text-align: center;
+    padding: $space-10;
+    color: $gray-600;
+    @include fade-in;
+  }
+}
+
+// Responsive Design
+@include respond-to('md') {
+  .dashboard-container {
+    padding: $space-4;
+  }
+
+  .stats-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .action-grid {
+    grid-template-columns: 1fr;
+  }
+}

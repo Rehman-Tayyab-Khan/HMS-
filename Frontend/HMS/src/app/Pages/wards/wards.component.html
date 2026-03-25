@@ -1,0 +1,21 @@
+<div class="page-container">
+  <div class="page-header">
+    <h1>Wards</h1>
+    <button class="btn btn-primary">Add New Ward</button>
+  </div>
+
+  <div class="loading" *ngIf="isLoading">
+    <p>Loading wards...</p>
+  </div>
+
+  <div class="wards-grid" *ngIf="!isLoading">
+    <div class="ward-card" *ngFor="let ward of wards">
+      <h3>{{ ward.wardName }}</h3>
+      <p><strong>Ward Number:</strong> {{ ward.wardNumber }}</p>
+      <p><strong>Type:</strong> {{ ward.wardType }}</p>
+      <p><strong>Beds:</strong> {{ ward.availableBeds }} / {{ ward.totalBeds }} available</p>
+      <p><strong>Floor:</strong> {{ ward.floor }}</p>
+      <p><strong>Charge/Day:</strong> ${{ ward.chargePerDay }}</p>
+    </div>
+  </div>
+</div>

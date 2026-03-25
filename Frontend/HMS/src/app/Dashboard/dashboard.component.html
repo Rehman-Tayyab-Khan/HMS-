@@ -1,0 +1,80 @@
+<div class="dashboard-container">
+  <div class="dashboard-header">
+    <div class="header-content">
+      <div class="welcome-section">
+        <h1 class="welcome-title">Welcome, {{ user?.staffInfo?.firstName || 'User' }}</h1>
+        <p class="role-badge">{{ getRoleDisplayName(user?.role) }}</p>
+      </div>
+      <div class="header-actions">
+        <div class="current-time">
+          <span class="material-symbols-outlined time-icon">schedule</span>
+          <span>{{ currentTime | date:'medium' }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="dashboard-content" *ngIf="user?.role === 'admin' || user?.role === 'management'">
+    <!-- Skeleton Loading -->
+    <div class="stats-grid skeleton-grid" *ngIf="isLoading">
+      <div class="stat-card skeleton-card" *ngFor="let i of [1,2,3,4]">
+        <div class="skeleton-icon"></div>
+        <div class="skeleton-content">
+          <div class="skeleton-line skeleton-title"></div>
+          <div class="skeleton-line skeleton-subtitle"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Actual Stats -->
+    <div class="stats-grid" *ngIf="stats && !isLoading">
+      <div class="stat-card" *ngFor="let stat of [
+        { icon: 'people', value: stats.overview?.totalPatients || 0, label: 'Total Patients', color: 'patients', trend: '+12%' },
+        { icon: 'groups', value: stats.overview?.totalStaff || 0, label: 'Total Staff', color: 'staff', trend: '+5%' },
+        { icon: 'event', value: stats.appointments?.today || 0, label: 'Today\'s Appointments', color: 'appointments', trend: '+8%' },
+        { icon: 'hotel', value: (stats.overview?.availableBeds || 0) + ' / ' + (stats.overview?.totalBeds || 0), label: 'Available Beds', color: 'beds', trend: '85%' }
+      ]; let i = index" [attr.data-index]="i" [attr.data-color]="stat.color">
+        <div class="stat-icon-wrapper">
+          <span class="material-symbols-outlined stat-icon" [ngClass]="stat.color">{{ stat.icon }}</span>
+          <div class="stat-icon-glow"></div>
+        </div>
+        <div class="stat-info">
+          <div class="stat-value-row">
+            <h3>{{ stat.value }}</h3>
+            <span class="stat-trend" [ngClass]="{'positive': stat.trend.startsWith('+')}">{{ stat.trend }}</span>
+          </div>
+          <p>{{ stat.label }}</p>
+        </div>
+        <div class="stat-hover-effect"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="dashboard-content" *ngIf="user?.role === 'doctor' || user?.role === 'nurse'">
+    <div class="quick-actions">
+      <div class="section-header">
+        <h2>Quick Actions</h2>
+        <p class="section-subtitle">Access your most used features</p>
+      </div>
+      <div class="action-grid">
+        <ng-container *ngFor="let action of [
+          { icon: 'event', title: 'Appointments', desc: 'View and manage appointments', route: '/appointments' },
+          { icon: 'people', title: 'Patients', desc: 'View patient records', route: '/patients' },
+          { icon: 'medical_services', title: 'Medical Records', desc: 'Create and view medical records', route: '/medical-records', show: user?.role === 'doctor' },
+          { icon: 'hotel', title: 'Wards', desc: 'Manage ward assignments', route: '/wards' }
+        ]; let i = index">
+          <a [routerLink]="action.route" class="action-card" [attr.data-index]="i" *ngIf="action.show !== false">
+            <div class="action-icon-wrapper">
+              <span class="material-symbols-outlined action-icon">{{ action.icon }}</span>
+              <div class="action-icon-bg"></div>
+            </div>
+            <h3>{{ action.title }}</h3>
+            <p>{{ action.desc }}</p>
+            <span class="material-symbols-outlined action-arrow">arrow_forward</span>
+            <div class="action-hover-effect"></div>
+          </a>
+        </ng-container>
+      </div>
+    </div>
+  </div>
+</div>

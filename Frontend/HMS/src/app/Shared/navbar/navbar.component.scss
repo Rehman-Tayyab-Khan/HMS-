@@ -1,0 +1,332 @@
+@use 'theme/index' as *;
+
+.navbar {
+  background: rgba($white, 0.98);
+  box-shadow: $shadow-sm;
+  border-bottom: $border-width-1 solid $border-color-light;
+  position: sticky;
+  top: 0;
+  z-index: $z-sticky;
+  padding: 0;
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  @include fade-in-down;
+}
+
+.navbar-container {
+  max-width: $container-2xl;
+  margin: 0 auto;
+  @include flex-between;
+  padding: $space-4 $space-8;
+  gap: $space-4;
+}
+
+.navbar-brand {
+  .brand-link {
+    @include flex-start;
+    text-decoration: none;
+    color: $gray-900;
+    font-weight: $font-bold;
+    font-size: $text-2xl;
+    transition: $transition-transform;
+    gap: $space-2;
+
+    &:hover {
+      transform: scale(1.05);
+    }
+
+    .brand-icon {
+      font-size: 32px;
+      font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 48;
+      color: $primary-base;
+      transition: $transition-transform;
+      
+      &:hover {
+        transform: rotate(5deg);
+      }
+    }
+
+    .brand-text {
+      background: linear-gradient(135deg, $primary-base 0%, $primary-dark 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      font-weight: $font-extrabold;
+      letter-spacing: $tracking-tight;
+    }
+  }
+}
+
+.navbar-menu {
+  @include flex-center;
+  gap: $space-1;
+  flex: 1;
+  justify-content: center;
+
+  .nav-link {
+    padding: $space-2 $space-4;
+    text-decoration: none;
+    color: $gray-700;
+    font-weight: $font-medium;
+    font-size: $text-sm;
+    border-radius: $radius-md;
+    transition: $transition-base;
+    position: relative;
+    white-space: nowrap;
+    @include flex-center;
+    gap: $space-2;
+
+    .nav-icon {
+      font-size: 18px;
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      transition: $transition-base;
+    }
+
+    &::before {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 0;
+      height: 2px;
+      background: $primary-base;
+      transition: width $duration-base $ease-out;
+    }
+
+    &:hover {
+      background: $gray-50;
+      color: $primary-base;
+      transform: translateY(-1px);
+      
+      &::before {
+        width: 80%;
+      }
+
+      .nav-icon {
+        color: $primary-base;
+        transform: scale(1.1);
+      }
+    }
+
+    &.active {
+      background: linear-gradient(135deg, $primary-base 0%, $primary-dark 100%);
+      color: $white;
+      box-shadow: $shadow-primary-sm;
+      
+      &::before {
+        width: 0;
+      }
+
+      .nav-icon {
+        color: $white;
+        font-variation-settings: 'FILL' 1, 'wght' 500, 'GRAD' 0, 'opsz' 24;
+      }
+    }
+  }
+}
+
+.navbar-user {
+  @include flex-center;
+  gap: $space-4;
+
+  .user-info {
+    @include flex-column;
+    align-items: flex-end;
+    gap: $space-1;
+
+    .user-name {
+      font-weight: $font-semibold;
+      color: $gray-900;
+      font-size: $text-sm;
+      line-height: 1.2;
+    }
+
+    .user-role {
+      font-size: $text-xs;
+      color: $primary-base;
+      font-weight: $font-medium;
+      text-transform: capitalize;
+    }
+  }
+
+  .btn-profile {
+    padding: $space-2 $space-4;
+    background: $gray-50;
+    color: $gray-800;
+    text-decoration: none;
+    border-radius: $radius-md;
+    font-weight: $font-medium;
+    font-size: $text-sm;
+    transition: $transition-base;
+    border: $border-width-1 solid transparent;
+    @include flex-center;
+    gap: $space-1;
+
+    .material-symbols-outlined {
+      font-size: 18px;
+    }
+
+    &:hover {
+      background: $primary-lighter;
+      color: $primary-base;
+      border-color: $primary-light;
+      transform: translateY(-1px);
+    }
+  }
+
+  .btn-logout {
+    @include button-base;
+    padding: $space-2 $space-4;
+    background: $error-base;
+    color: $white;
+    font-size: $text-sm;
+    font-weight: $font-medium;
+    @include flex-center;
+    gap: $space-1;
+
+    .material-symbols-outlined {
+      font-size: 18px;
+    }
+
+    &:hover:not(:disabled) {
+      background: $error-dark;
+      @include hover-lift;
+      box-shadow: 0 4px 12px rgba($error-base, 0.3);
+    }
+  }
+
+  .menu-toggle {
+    display: none;
+    @include flex-column;
+    gap: $space-1;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: $space-2;
+    border-radius: $radius-base;
+    transition: $transition-base;
+    position: relative;
+    z-index: 10;
+
+    &:hover {
+      background: $gray-100;
+    }
+
+    span {
+      width: 24px;
+      height: 2px;
+      background: $gray-800;
+      border-radius: $radius-sm;
+      transition: all $duration-base $ease-in-out;
+      transform-origin: center;
+
+      &.active:nth-child(1) {
+        transform: rotate(45deg) translate(6px, 6px);
+      }
+
+      &.active:nth-child(2) {
+        opacity: 0;
+        transform: translateX(-10px);
+      }
+
+      &.active:nth-child(3) {
+        transform: rotate(-45deg) translate(6px, -6px);
+      }
+    }
+  }
+}
+
+// Responsive adjustments
+@include respond-to('md') {
+  .navbar-container {
+    padding: $space-4 $space-6;
+  }
+  
+  .navbar-menu {
+    gap: $space-2;
+  }
+}
+
+@media (max-width: $breakpoint-md - 1px) {
+  .navbar-container {
+    padding: $space-3 $space-4;
+    flex-wrap: wrap;
+  }
+
+  .navbar-menu {
+    position: fixed;
+    top: 64px;
+    left: 0;
+    right: 0;
+    background: $white;
+    @include flex-column;
+    padding: $space-4;
+    box-shadow: $shadow-lg;
+    transform: translateY(-100%);
+    opacity: 0;
+    visibility: hidden;
+    transition: all $duration-medium $ease-out;
+    max-height: calc(100vh - 64px);
+    overflow-y: auto;
+    z-index: $z-dropdown;
+
+    &.active {
+      transform: translateY(0);
+      opacity: 1;
+      visibility: visible;
+      @include slide-in-down;
+    }
+
+    .nav-link {
+      width: 100%;
+      text-align: left;
+      padding: $space-3 $space-4;
+      border-radius: $radius-base;
+      margin-bottom: $space-1;
+      justify-content: flex-start;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+
+      .nav-icon {
+        font-size: 20px;
+      }
+    }
+  }
+
+  .navbar-user {
+    gap: $space-2;
+
+    .user-info {
+      display: none;
+    }
+
+    .btn-profile,
+    .btn-logout {
+      padding: $space-2 $space-3;
+      font-size: $text-xs;
+      
+      span:not(.material-symbols-outlined) {
+        display: none;
+      }
+
+      .material-symbols-outlined {
+        font-size: 20px;
+      }
+    }
+
+    .menu-toggle {
+      display: flex;
+    }
+  }
+
+  .navbar-brand .brand-link {
+    font-size: $text-xl;
+    
+    .brand-icon {
+      font-size: 28px;
+    }
+  }
+}

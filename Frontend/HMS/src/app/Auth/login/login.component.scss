@@ -1,0 +1,114 @@
+@use 'theme/index' as *;
+
+.login-container {
+  min-height: 100vh;
+  @include flex-center;
+  background: $bg-pattern-primary;
+  padding: $space-6;
+}
+
+.login-card {
+  @include card;
+  width: 100%;
+  max-width: 450px;
+  padding: $space-10;
+  box-shadow: $shadow-xl;
+}
+
+.login-header {
+  text-align: center;
+  margin-bottom: $space-8;
+
+  h1 {
+    color: $gray-900;
+    font-size: $text-3xl;
+    font-weight: $font-semibold;
+    margin-bottom: $space-2;
+  }
+
+  p {
+    color: $gray-600;
+    font-size: $text-sm;
+  }
+}
+
+.login-form {
+  .form-group {
+    margin-bottom: $space-6;
+
+    label {
+      display: block;
+      margin-bottom: $space-2;
+      color: $gray-800;
+      font-weight: $font-medium;
+      font-size: $text-sm;
+    }
+
+    .form-control {
+      @include input-base;
+    }
+
+    .error-message {
+      color: $error-base;
+      font-size: $text-xs;
+      margin-top: $space-1;
+    }
+  }
+
+  .error-message {
+    background: $error-light;
+    color: $error-base;
+    padding: $space-3;
+    border-radius: $radius-md;
+    margin-bottom: $space-6;
+    font-size: $text-sm;
+  }
+
+  .btn {
+    width: 100%;
+    @include button-base;
+    padding: $space-4;
+
+    &.btn-primary {
+      background: $primary-base;
+      color: $white;
+
+      &:hover:not(:disabled) {
+        background: $primary-dark;
+        @include hover-lift;
+      }
+    }
+  }
+}
+
+.login-footer {
+  text-align: center;
+  margin-top: $space-6;
+  padding-top: $space-6;
+  border-top: $border-width-1 solid $border-color-light;
+
+  p {
+    color: $gray-600;
+    font-size: $text-sm;
+    margin: $space-2 0;
+
+    a {
+      color: $primary-base;
+      text-decoration: none;
+      font-weight: $font-medium;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+
+    &.back-link {
+      margin-top: $space-4;
+      font-size: $text-xs;
+
+      a {
+        color: $gray-500;
+      }
+    }
+  }
+}

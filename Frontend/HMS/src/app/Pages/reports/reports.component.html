@@ -1,0 +1,35 @@
+<div class="page-container">
+  <div class="page-header">
+    <h1>Reports & Analytics</h1>
+  </div>
+
+  <div class="loading" *ngIf="isLoading">
+    <p>Loading reports...</p>
+  </div>
+
+  <div class="reports-content" *ngIf="!isLoading && dashboardStats">
+    <div class="report-section">
+      <h2>Overview Statistics</h2>
+      <div class="stats-grid">
+        <div class="stat-item">
+          <h3>Total Patients</h3>
+          <p class="stat-value">{{ dashboardStats.overview?.totalPatients || 0 }}</p>
+        </div>
+        <div class="stat-item">
+          <h3>Total Staff</h3>
+          <p class="stat-value">{{ dashboardStats.overview?.totalStaff || 0 }}</p>
+        </div>
+        <div class="stat-item">
+          <h3>Total Wards</h3>
+          <p class="stat-value">{{ dashboardStats.overview?.totalWards || 0 }}</p>
+        </div>
+        <div class="stat-item">
+          <h3>Bed Occupancy</h3>
+          <p class="stat-value">
+            {{ dashboardStats.overview?.occupiedBeds || 0 }} / {{ dashboardStats.overview?.totalBeds || 0 }}
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,49 @@
+@use 'theme/index' as *;
+
+.page-container {
+  padding: $space-6;
+  background: $gray-50;
+  min-height: 100vh;
+}
+
+.page-header {
+  @include flex-between;
+  margin-bottom: $space-8;
+
+  h1 {
+    margin: 0;
+    color: $gray-900;
+    font-size: $text-3xl;
+    font-weight: $font-semibold;
+  }
+}
+
+.wards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: $space-6;
+}
+
+.ward-card {
+  @include card;
+  @include hover-lift;
+
+  h3 {
+    margin: 0 0 $space-4 0;
+    color: $gray-900;
+    font-size: $text-xl;
+    font-weight: $font-semibold;
+  }
+
+  p {
+    margin: $space-2 0;
+    color: $gray-600;
+    font-size: $text-sm;
+  }
+}
+
+.loading {
+  text-align: center;
+  padding: $space-10;
+  color: $gray-600;
+}

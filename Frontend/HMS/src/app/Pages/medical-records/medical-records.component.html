@@ -1,0 +1,21 @@
+<div class="page-container">
+  <div class="page-header">
+    <h1>Medical Records</h1>
+    <button class="btn btn-primary">Create New Record</button>
+  </div>
+
+  <div class="loading" *ngIf="isLoading">
+    <p>Loading medical records...</p>
+  </div>
+
+  <div class="records-list" *ngIf="!isLoading">
+    <div class="record-card" *ngFor="let record of records">
+      <h3>{{ record.patient?.firstName }} {{ record.patient?.lastName }}</h3>
+      <p><strong>Record ID:</strong> {{ record.recordId }}</p>
+      <p><strong>Doctor:</strong> {{ record.doctor?.firstName }} {{ record.doctor?.lastName }}</p>
+      <p><strong>Visit Date:</strong> {{ record.visitDate | date }}</p>
+      <p><strong>Diagnosis:</strong> {{ record.diagnosis }}</p>
+      <p><strong>Chief Complaint:</strong> {{ record.chiefComplaint }}</p>
+    </div>
+  </div>
+</div>

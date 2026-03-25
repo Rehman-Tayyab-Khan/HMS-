@@ -1,0 +1,25 @@
+<div class="page-container">
+  <div class="page-header">
+    <h1>Appointments</h1>
+    <button class="btn btn-primary">Schedule Appointment</button>
+  </div>
+
+  <div class="loading" *ngIf="isLoading">
+    <p>Loading appointments...</p>
+  </div>
+
+  <div class="appointments-list" *ngIf="!isLoading">
+    <div class="appointment-card" *ngFor="let appointment of appointments">
+      <div class="appointment-header">
+        <h3>{{ appointment.patient?.firstName }} {{ appointment.patient?.lastName }}</h3>
+        <span class="status-badge" [class]="'status-' + appointment.status">
+          {{ appointment.status }}
+        </span>
+      </div>
+      <p><strong>Doctor:</strong> {{ appointment.doctor?.firstName }} {{ appointment.doctor?.lastName }}</p>
+      <p><strong>Date:</strong> {{ appointment.appointmentDate | date }}</p>
+      <p><strong>Time:</strong> {{ appointment.appointmentTime }}</p>
+      <p><strong>Reason:</strong> {{ appointment.reason }}</p>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,65 @@
+@use 'theme/index' as *;
+
+.page-container {
+  padding: $space-6;
+  background: $gray-50;
+  min-height: 100vh;
+}
+
+.page-header {
+  margin-bottom: $space-8;
+
+  h1 {
+    margin: 0;
+    color: $gray-900;
+    font-size: $text-3xl;
+    font-weight: $font-semibold;
+  }
+}
+
+.reports-content {
+  .report-section {
+    @include card;
+    margin-bottom: $space-6;
+
+    h2 {
+      margin: 0 0 $space-6 0;
+      color: $gray-900;
+      font-size: $text-2xl;
+      font-weight: $font-semibold;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: $space-6;
+    }
+
+    .stat-item {
+      text-align: center;
+      padding: $space-6;
+      background: $gray-50;
+      border-radius: $radius-md;
+
+      h3 {
+        margin: 0 0 $space-2 0;
+        color: $gray-600;
+        font-size: $text-sm;
+        font-weight: $font-medium;
+      }
+
+      .stat-value {
+        margin: 0;
+        font-size: $text-4xl;
+        font-weight: $font-semibold;
+        color: $primary-base;
+      }
+    }
+  }
+}
+
+.loading {
+  text-align: center;
+  padding: $space-10;
+  color: $gray-600;
+}

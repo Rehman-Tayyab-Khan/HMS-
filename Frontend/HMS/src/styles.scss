@@ -1,0 +1,341 @@
+// ============================================================================
+// HMS - Hospital Management System
+// Global Styles with Elegant Professional Theme
+// ============================================================================
+
+@use 'theme/index' as *;
+
+// ============================================================================
+// RESET & BASE STYLES
+// ============================================================================
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  @include smooth-scroll;
+}
+
+body {
+  font-family: $font-primary;
+  font-size: $text-base;
+  font-weight: $font-regular;
+  line-height: $leading-normal;
+  color: $gray-800;
+  background: linear-gradient(135deg, $gray-50 0%, $white 50%, $primary-lightest 100%);
+  background-attachment: fixed;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  min-height: 100vh;
+  @include smooth-scroll;
+}
+
+// Material Icons Base Styles
+.material-symbols-outlined,
+.material-symbols-rounded {
+  font-family: 'Material Symbols Outlined', 'Material Symbols Rounded';
+  font-weight: normal;
+  font-style: normal;
+  font-size: 24px;
+  line-height: 1;
+  letter-spacing: normal;
+  text-transform: none;
+  display: inline-block;
+  white-space: nowrap;
+  word-wrap: normal;
+  direction: ltr;
+  -webkit-font-feature-settings: 'liga';
+  -webkit-font-smoothing: antialiased;
+  user-select: none;
+}
+
+// Smooth page transitions
+router-outlet + * {
+  display: block;
+  animation: fadeInUp $duration-medium $ease-out;
+}
+
+// ============================================================================
+// TYPOGRAPHY
+// ============================================================================
+
+h1, h2, h3, h4, h5, h6 {
+  font-weight: $font-semibold;
+  line-height: $leading-tight;
+  color: $gray-900;
+  margin-bottom: $space-4;
+}
+
+h1 { font-size: $text-4xl; }
+h2 { font-size: $text-3xl; }
+h3 { font-size: $text-2xl; }
+h4 { font-size: $text-xl; }
+h5 { font-size: $text-lg; }
+h6 { font-size: $text-base; }
+
+p {
+  margin-bottom: $space-4;
+  color: $gray-700;
+}
+
+a {
+  color: $primary-base;
+  text-decoration: none;
+  transition: $transition-color;
+  
+  &:hover {
+    color: $primary-dark;
+  }
+  
+  &:focus-visible {
+    @include focus-ring;
+  }
+}
+
+// ============================================================================
+// BUTTONS
+// ============================================================================
+
+.btn {
+  @include button-base;
+  
+  &.btn-primary {
+    background: linear-gradient(135deg, $primary-base 0%, $primary-dark 100%);
+    color: $white;
+    box-shadow: $shadow-primary-sm;
+    
+    &:hover:not(:disabled) {
+      background: linear-gradient(135deg, $primary-dark 0%, $primary-base 100%);
+      box-shadow: $shadow-primary-md;
+      @include hover-lift;
+    }
+  }
+  
+  &.btn-secondary {
+    background: $gray-600;
+    color: $white;
+    
+    &:hover:not(:disabled) {
+      background: $gray-700;
+    }
+  }
+  
+  &.btn-danger {
+    background: $error-base;
+    color: $white;
+    
+    &:hover:not(:disabled) {
+      background: $error-dark;
+    }
+  }
+  
+  &.btn-success {
+    background: $success-base;
+    color: $white;
+    
+    &:hover:not(:disabled) {
+      background: $success-dark;
+    }
+  }
+  
+  &.btn-outline {
+    background: transparent;
+    border: $border-width-2 solid $primary-base;
+    color: $primary-base;
+    
+    &:hover:not(:disabled) {
+      background: $primary-base;
+      color: $white;
+    }
+  }
+  
+  &.btn-sm {
+    padding: $btn-padding-sm;
+    font-size: $text-sm;
+  }
+  
+  &.btn-lg {
+    padding: $btn-padding-lg;
+    font-size: $text-lg;
+  }
+}
+
+// ============================================================================
+// FORM CONTROLS
+// ============================================================================
+
+.form-control {
+  @include input-base;
+  
+  &.form-control-sm {
+    height: $input-height-sm;
+    padding: $space-2 $space-3;
+    font-size: $text-sm;
+  }
+  
+  &.form-control-lg {
+    height: $input-height-lg;
+    padding: $space-4 $space-5;
+    font-size: $text-lg;
+  }
+}
+
+.error-message {
+  color: $error-base;
+  font-size: $text-xs;
+  margin-top: $space-1;
+  display: block;
+}
+
+// ============================================================================
+// CARDS
+// ============================================================================
+
+.card {
+  @include card;
+  margin-bottom: $space-6;
+  transition: $transition-shadow, $transition-transform;
+  border: $border-width-1 solid $border-color-light;
+  
+  &:hover {
+    box-shadow: $shadow-lg;
+    transform: translateY(-2px);
+  }
+  
+  .card-header {
+    padding-bottom: $space-4;
+    margin-bottom: $space-4;
+    border-bottom: $border-width-1 solid $border-color-light;
+    
+    h1, h2, h3, h4, h5, h6 {
+      margin-bottom: 0;
+      color: $gray-900;
+      font-weight: $font-semibold;
+    }
+  }
+  
+  .card-body {
+    padding: 0;
+  }
+  
+  .card-footer {
+    padding-top: $space-4;
+    margin-top: $space-4;
+    border-top: $border-width-1 solid $border-color-light;
+  }
+}
+
+// ============================================================================
+// UTILITY CLASSES
+// ============================================================================
+
+.container {
+  width: 100%;
+  max-width: $container-xl;
+  margin: 0 auto;
+  padding: 0 $space-4;
+  
+  @include respond-to('sm') {
+    padding: 0 $space-6;
+  }
+  
+  @include respond-to('lg') {
+    padding: 0 $space-8;
+  }
+}
+
+// Animation Utilities
+.fade-in { @include fade-in; }
+.fade-in-up { @include fade-in-up; }
+.fade-in-down { @include fade-in-down; }
+.slide-up { @include slide-up; }
+.scale-in { @include scale-in; }
+.slide-in-left { @include slide-in-left; }
+.slide-in-right { @include slide-in-right; }
+
+// Page Transitions
+.page-enter {
+  animation: fadeInUp $duration-medium $ease-out;
+}
+
+.page-leave {
+  animation: fadeIn $duration-fast $ease-in reverse;
+}
+
+.text-center { text-align: center; }
+.text-left { text-align: left; }
+.text-right { text-align: right; }
+
+.text-primary { color: $primary-base; }
+.text-success { color: $success-base; }
+.text-warning { color: $warning-base; }
+.text-error { color: $error-base; }
+.text-muted { color: $gray-500; }
+
+.bg-primary { background-color: $primary-base; }
+.bg-white { background-color: $white; }
+.bg-gray-50 { background-color: $gray-50; }
+
+.mt-1 { margin-top: $space-1; }
+.mt-2 { margin-top: $space-2; }
+.mt-4 { margin-top: $space-4; }
+.mt-6 { margin-top: $space-6; }
+
+.mb-1 { margin-bottom: $space-1; }
+.mb-2 { margin-bottom: $space-2; }
+.mb-4 { margin-bottom: $space-4; }
+.mb-6 { margin-bottom: $space-6; }
+
+.p-2 { padding: $space-2; }
+.p-4 { padding: $space-4; }
+.p-6 { padding: $space-6; }
+
+.shadow-sm { box-shadow: $shadow-sm; }
+.shadow-base { box-shadow: $shadow-base; }
+.shadow-md { box-shadow: $shadow-md; }
+.shadow-lg { box-shadow: $shadow-lg; }
+
+.rounded { border-radius: $radius-base; }
+.rounded-lg { border-radius: $radius-lg; }
+.rounded-full { border-radius: $radius-full; }
+
+// ============================================================================
+// ACCESSIBILITY
+// ============================================================================
+
+*:focus-visible {
+  @include focus-ring;
+}
+
+// Skip link for screen readers
+.skip-link {
+  position: absolute;
+  top: -40px;
+  left: 0;
+  background: $primary-base;
+  color: $white;
+  padding: $space-2 $space-4;
+  z-index: $z-tooltip;
+  
+  &:focus {
+    top: 0;
+  }
+}
+
+// ============================================================================
+// PRINT STYLES
+// ============================================================================
+
+@media print {
+  body {
+    background: $print-bg-color;
+    color: $print-text-color;
+  }
+  
+  .no-print {
+    display: none !important;
+  }
+}

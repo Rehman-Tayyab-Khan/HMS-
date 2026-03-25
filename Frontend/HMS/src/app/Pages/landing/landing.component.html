@@ -1,0 +1,229 @@
+<div class="lp">
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-bg" aria-hidden="true"></div>
+
+    <div class="container hero-grid">
+      <div class="hero-copy reveal">
+        <div class="pill">
+          <span class="material-symbols-outlined">verified</span>
+          <span>Elegant. Secure. Built for real hospital workflows.</span>
+        </div>
+
+        <h1 class="hero-title">
+          Hospital Management
+          <span class="hero-title-accent">made calm and fast</span>
+        </h1>
+
+        <p class="hero-subtitle">
+          A modern HMS that keeps staff, patients, appointments, wards, and reports in one consistent system—clean UI, smooth UX, and protected routes.
+        </p>
+
+        <div class="hero-actions">
+          <a routerLink="/signup" class="btn btn-primary">
+            <span>Get started</span>
+            <span class="material-symbols-outlined">arrow_forward</span>
+          </a>
+          <a routerLink="/login" class="btn btn-outline">
+            <span>Sign in</span>
+          </a>
+        </div>
+
+        <div class="trust reveal">
+          <div class="trust-item" *ngFor="let stat of trustStats">
+            <span class="material-symbols-outlined trust-icon">{{ stat.icon }}</span>
+            <div class="trust-text">
+              <div class="trust-value">{{ stat.value }}</div>
+              <div class="trust-label">{{ stat.label }}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="hero-preview reveal" aria-label="Product preview cards">
+        <div class="preview-card card-a">
+          <div class="preview-head">
+            <span class="material-symbols-outlined">calendar_month</span>
+            <span>Today’s appointments</span>
+          </div>
+          <div class="preview-row"><span class="dot"></span><span class="line"></span></div>
+          <div class="preview-row"><span class="dot"></span><span class="line"></span></div>
+          <div class="preview-row"><span class="dot"></span><span class="line"></span></div>
+        </div>
+
+        <div class="preview-card card-b">
+          <div class="preview-head">
+            <span class="material-symbols-outlined">folder_open</span>
+            <span>Patient record</span>
+          </div>
+          <div class="preview-chips">
+            <span class="chip">Vitals</span>
+            <span class="chip">History</span>
+            <span class="chip">Notes</span>
+          </div>
+          <div class="preview-block"></div>
+        </div>
+
+        <div class="preview-card card-c">
+          <div class="preview-head">
+            <span class="material-symbols-outlined">analytics</span>
+            <span>Operational overview</span>
+          </div>
+          <div class="mini-bars">
+            <span class="bar h1"></span>
+            <span class="bar h2"></span>
+            <span class="bar h3"></span>
+            <span class="bar h4"></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Highlights -->
+  <section class="section">
+    <div class="container">
+      <div class="section-head reveal">
+        <h2>Designed to feel premium</h2>
+        <p>Everything is consistent: spacing, typography, colors, and interactions.</p>
+      </div>
+
+      <div class="highlight-grid">
+        <div class="highlight reveal" *ngFor="let h of highlights">
+          <span class="material-symbols-outlined highlight-icon">{{ h.icon }}</span>
+          <div class="highlight-body">
+            <h3>{{ h.title }}</h3>
+            <p>{{ h.description }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Modules -->
+  <section class="section section-soft">
+    <div class="container">
+      <div class="section-head reveal">
+        <h2>Core modules</h2>
+        <p>Built around how hospitals actually operate—cleanly separated and secure.</p>
+      </div>
+
+      <div class="module-grid">
+        <div class="module-card reveal" *ngFor="let m of modules">
+          <div class="module-icon">
+            <span class="material-symbols-outlined">{{ m.icon }}</span>
+          </div>
+          <h3>{{ m.title }}</h3>
+          <p>{{ m.description }}</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Workflow -->
+  <section class="section">
+    <div class="container">
+      <div class="section-head reveal">
+        <h2>Simple workflow</h2>
+        <p>Set roles once, then manage care with fewer steps and less friction.</p>
+      </div>
+
+      <div class="steps">
+        <div class="step reveal" *ngFor="let s of steps; let i = index">
+          <div class="step-n">{{ i + 1 }}</div>
+          <div class="step-body">
+            <h3>{{ s.title }}</h3>
+            <p>{{ s.description }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials -->
+  <section class="section section-soft">
+    <div class="container">
+      <div class="section-head reveal">
+        <h2>Teams love the clarity</h2>
+        <p>A calmer UI reduces mistakes and speeds up daily work.</p>
+      </div>
+
+      <div class="testimonials">
+        <div class="quote-card reveal" *ngFor="let t of testimonials">
+          <div class="quote-top">
+            <span class="material-symbols-outlined quote-icon">{{ t.icon }}</span>
+            <span class="material-symbols-outlined star">star</span>
+            <span class="material-symbols-outlined star">star</span>
+            <span class="material-symbols-outlined star">star</span>
+            <span class="material-symbols-outlined star">star</span>
+            <span class="material-symbols-outlined star">star</span>
+          </div>
+          <p class="quote">“{{ t.quote }}”</p>
+          <div class="quote-foot">
+            <div class="who">
+              <div class="name">{{ t.name }}</div>
+              <div class="role">{{ t.role }}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="section">
+    <div class="container">
+      <div class="section-head reveal">
+        <h2>FAQ</h2>
+        <p>Quick answers before you start.</p>
+      </div>
+
+      <div class="faq">
+        <details class="faq-item reveal" *ngFor="let f of faqs">
+          <summary>
+            <span>{{ f.q }}</span>
+            <span class="material-symbols-outlined">expand_more</span>
+          </summary>
+          <div class="faq-body">{{ f.a }}</div>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta">
+    <div class="container cta-inner reveal">
+      <div class="cta-left">
+        <h2>Start with a clean, secure HMS</h2>
+        <p>Sign up to explore the system. The theme and layout stay consistent across the entire app.</p>
+      </div>
+      <div class="cta-right">
+        <a routerLink="/signup" class="btn btn-primary">
+          <span>Create account</span>
+          <span class="material-symbols-outlined">arrow_forward</span>
+        </a>
+        <a routerLink="/login" class="btn btn-outline">
+          <span>Sign in</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container footer-inner">
+      <div class="footer-brand">
+        <div class="footer-logo">
+          <span class="material-symbols-outlined">local_hospital</span>
+          <span>HMS</span>
+        </div>
+        <p>Elegant hospital operations—secure, organized, and fast.</p>
+      </div>
+      <div class="footer-links">
+        <a routerLink="/signup">Get started</a>
+        <a routerLink="/login">Sign in</a>
+      </div>
+      <div class="footer-copy">© 2026 HMS. All rights reserved.</div>
+    </div>
+  </footer>
+</div>

@@ -1,0 +1,80 @@
+@use 'theme/index' as *;
+
+.page-container {
+  padding: $space-6;
+  background: $gray-50;
+  min-height: 100vh;
+}
+
+.page-header {
+  @include flex-between;
+  margin-bottom: $space-8;
+
+  h1 {
+    margin: 0;
+    color: $gray-900;
+    font-size: $text-3xl;
+    font-weight: $font-semibold;
+  }
+}
+
+.appointments-list {
+  display: grid;
+  gap: $space-6;
+}
+
+.appointment-card {
+  @include card;
+  @include hover-lift;
+
+  .appointment-header {
+    @include flex-between;
+    margin-bottom: $space-4;
+
+    h3 {
+      margin: 0;
+      color: $gray-900;
+      font-size: $text-xl;
+      font-weight: $font-semibold;
+    }
+
+    .status-badge {
+      padding: $badge-padding;
+      border-radius: $badge-radius;
+      font-size: $badge-font-size;
+      font-weight: $badge-font-weight;
+
+      &.status-scheduled {
+        background: $warning-light;
+        color: $warning-dark;
+      }
+
+      &.status-confirmed {
+        background: $info-light;
+        color: $info-dark;
+      }
+
+      &.status-completed {
+        background: $success-light;
+        color: $success-dark;
+      }
+
+      &.status-cancelled {
+        background: $error-light;
+        color: $error-dark;
+      }
+    }
+  }
+
+  p {
+    margin: $space-2 0;
+    color: $gray-600;
+    font-size: $text-sm;
+  }
+}
+
+.loading {
+  text-align: center;
+  padding: $space-10;
+  color: $gray-600;
+}

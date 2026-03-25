@@ -1,0 +1,107 @@
+@use 'theme/index' as *;
+
+.profile-container {
+  padding: $space-8;
+  max-width: $container-lg;
+  margin: 0 auto;
+  background: $gray-50;
+  min-height: 100vh;
+}
+
+.profile-header {
+  margin-bottom: $space-8;
+
+  h1 {
+    margin: 0 0 $space-2 0;
+    color: $gray-900;
+    font-size: $text-3xl;
+    font-weight: $font-semibold;
+  }
+
+  p {
+    margin: 0;
+    color: $gray-600;
+  }
+}
+
+.profile-content {
+  display: grid;
+  gap: $space-8;
+}
+
+.profile-section {
+  @include card;
+
+  h2 {
+    margin: 0 0 $space-6 0;
+    color: $gray-900;
+    font-size: $text-2xl;
+    font-weight: $font-semibold;
+  }
+
+  .form-group {
+    margin-bottom: $space-6;
+
+    label {
+      display: block;
+      margin-bottom: $space-2;
+      color: $gray-800;
+      font-weight: $font-medium;
+    }
+
+    .form-control {
+      @include input-base;
+    }
+
+    .error-message {
+      color: $error-base;
+      font-size: $text-xs;
+      margin-top: $space-1;
+    }
+  }
+
+  .user-info {
+    background: $gray-50;
+    padding: $space-6;
+    border-radius: $radius-md;
+    margin-bottom: $space-6;
+
+    p {
+      margin: $space-2 0;
+      color: $gray-600;
+    }
+  }
+
+  .error-message {
+    background: $error-light;
+    color: $error-base;
+    padding: $space-3;
+    border-radius: $radius-md;
+    margin-bottom: $space-6;
+    font-size: $text-sm;
+  }
+
+  .success-message {
+    background: $success-light;
+    color: $success-dark;
+    padding: $space-3;
+    border-radius: $radius-md;
+    margin-bottom: $space-6;
+    font-size: $text-sm;
+  }
+
+  .btn {
+    @include button-base;
+    padding: $space-3 $space-6;
+
+    &.btn-primary {
+      background: $primary-base;
+      color: $white;
+
+      &:hover:not(:disabled) {
+        background: $primary-dark;
+        @include hover-lift;
+      }
+    }
+  }
+}

@@ -1,0 +1,21 @@
+<div class="page-container">
+  <div class="page-header">
+    <h1>Staff Management</h1>
+    <button class="btn btn-primary">Add New Staff</button>
+  </div>
+
+  <div class="loading" *ngIf="isLoading">
+    <p>Loading staff...</p>
+  </div>
+
+  <div class="staff-grid" *ngIf="!isLoading">
+    <div class="staff-card" *ngFor="let member of staff">
+      <h3>{{ member.firstName }} {{ member.lastName }}</h3>
+      <p><strong>Employee ID:</strong> {{ member.employeeId }}</p>
+      <p><strong>Role:</strong> {{ member.role }}</p>
+      <p><strong>Department:</strong> {{ member.department }}</p>
+      <p><strong>Email:</strong> {{ member.email }}</p>
+      <p><strong>Status:</strong> {{ member.status }}</p>
+    </div>
+  </div>
+</div>

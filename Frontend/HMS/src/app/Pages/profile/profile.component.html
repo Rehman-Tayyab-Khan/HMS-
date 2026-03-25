@@ -1,0 +1,103 @@
+<div class="profile-container">
+  <div class="profile-header">
+    <h1>My Profile</h1>
+    <p>Manage your account settings</p>
+  </div>
+
+  <div class="profile-content">
+    <!-- Profile Information -->
+    <div class="profile-section">
+      <h2>Profile Information</h2>
+      <form [formGroup]="profileForm" (ngSubmit)="updateProfile()">
+        <div class="form-group">
+          <label for="email">Email Address</label>
+          <input
+            type="email"
+            id="email"
+            formControlName="email"
+            class="form-control"
+            [class.error]="profileForm.get('email')?.invalid && profileForm.get('email')?.touched"
+          />
+          <div class="error-message" *ngIf="profileForm.get('email')?.invalid && profileForm.get('email')?.touched">
+            Please enter a valid email
+          </div>
+        </div>
+
+        <div class="user-info" *ngIf="user?.staffInfo">
+          <p><strong>Name:</strong> {{ user.staffInfo.firstName }} {{ user.staffInfo.lastName }}</p>
+          <p><strong>Role:</strong> {{ user.role }}</p>
+          <p><strong>Department:</strong> {{ user.staffInfo.department }}</p>
+        </div>
+
+        <div class="error-message" *ngIf="errorMessage && !passwordForm.touched">
+          {{ errorMessage }}
+        </div>
+        <div class="success-message" *ngIf="successMessage && !passwordForm.touched">
+          {{ successMessage }}
+        </div>
+
+        <button type="submit" class="btn btn-primary" [disabled]="profileForm.invalid || isLoading">
+          <span *ngIf="!isLoading">Update Profile</span>
+          <span *ngIf="isLoading">Updating...</span>
+        </button>
+      </form>
+    </div>
+
+    <!-- Change Password -->
+    <div class="profile-section">
+      <h2>Change Password</h2>
+      <form [formGroup]="passwordForm" (ngSubmit)="changePassword()">
+        <div class="form-group">
+          <label for="currentPassword">Current Password</label>
+          <input
+            type="password"
+            id="currentPassword"
+            formControlName="currentPassword"
+            class="form-control"
+            [class.error]="passwordForm.get('currentPassword')?.invalid && passwordForm.get('currentPassword')?.touched"
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="newPassword">New Password</label>
+          <input
+            type="password"
+            id="newPassword"
+            formControlName="newPassword"
+            class="form-control"
+            [class.error]="passwordForm.get('newPassword')?.invalid && passwordForm.get('newPassword')?.touched"
+          />
+          <div class="error-message" *ngIf="passwordForm.get('newPassword')?.invalid && passwordForm.get('newPassword')?.touched">
+            Password must be at least 6 characters
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="confirmPassword">Confirm New Password</label>
+          <input
+            type="password"
+            id="confirmPassword"
+            formControlName="confirmPassword"
+            class="form-control"
+            [class.error]="passwordForm.get('confirmPassword')?.invalid && passwordForm.get('confirmPassword')?.touched"
+          />
+          <div class="error-message" *ngIf="passwordForm.get('confirmPassword')?.errors?.['passwordMismatch'] && passwordForm.get('confirmPassword')?.touched">
+            Passwords do not match
+          </div>
+        </div>
+
+        <div class="error-message" *ngIf="errorMessage && passwordForm.touched">
+          {{ errorMessage }}
+        </div>
+        <div class="success-message" *ngIf="successMessage && passwordForm.touched">
+          {{ successMessage }}
+        </div>
+
+        <button type="submit" class="btn btn-primary" [disabled]="passwordForm.invalid || isLoading">
+          <span *ngIf="!isLoading">Change Password</span>
+          <span *ngIf="isLoading">Changing...</span>
+        </button>
+      </form>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,61 @@
+<nav class="navbar" *ngIf="authService.isAuthenticated()">
+  <div class="navbar-container">
+    <div class="navbar-brand">
+      <a routerLink="/dashboard" class="brand-link" (click)="closeMenu()">
+        <span class="material-symbols-outlined brand-icon">local_hospital</span>
+        <span class="brand-text">HMS</span>
+      </a>
+    </div>
+
+    <div class="navbar-menu" [class.active]="isMenuOpen" *ngIf="user?.profileCompleted">
+      <a routerLink="/dashboard" routerLinkActive="active" class="nav-link" (click)="closeMenu()">
+        <span class="material-symbols-outlined nav-icon">dashboard</span>
+        <span>Dashboard</span>
+      </a>
+      <a routerLink="/patients" routerLinkActive="active" class="nav-link" (click)="closeMenu()">
+        <span class="material-symbols-outlined nav-icon">people</span>
+        <span>Patients</span>
+      </a>
+      <a routerLink="/appointments" routerLinkActive="active" class="nav-link" (click)="closeMenu()">
+        <span class="material-symbols-outlined nav-icon">event</span>
+        <span>Appointments</span>
+      </a>
+      <a routerLink="/medical-records" routerLinkActive="active" class="nav-link" (click)="closeMenu()" *ngIf="user?.role === 'doctor' || user?.role === 'admin'">
+        <span class="material-symbols-outlined nav-icon">medical_services</span>
+        <span>Medical Records</span>
+      </a>
+      <a routerLink="/wards" routerLinkActive="active" class="nav-link" (click)="closeMenu()">
+        <span class="material-symbols-outlined nav-icon">hotel</span>
+        <span>Wards</span>
+      </a>
+      <a routerLink="/staff" routerLinkActive="active" class="nav-link" (click)="closeMenu()" *ngIf="user?.role === 'admin' || user?.role === 'management'">
+        <span class="material-symbols-outlined nav-icon">groups</span>
+        <span>Staff</span>
+      </a>
+      <a routerLink="/reports" routerLinkActive="active" class="nav-link" (click)="closeMenu()" *ngIf="user?.role === 'admin' || user?.role === 'management'">
+        <span class="material-symbols-outlined nav-icon">assessment</span>
+        <span>Reports</span>
+      </a>
+    </div>
+
+    <div class="navbar-user">
+      <div class="user-info" *ngIf="user">
+        <span class="user-name">{{ user?.staffInfo?.firstName || 'User' }} {{ user?.staffInfo?.lastName }}</span>
+        <span class="user-role">{{ getRoleDisplayName(user?.role) }}</span>
+      </div>
+      <a routerLink="/profile" class="btn-profile" (click)="closeMenu()">
+        <span class="material-symbols-outlined">person</span>
+        <span>Profile</span>
+      </a>
+      <button class="btn-logout" (click)="logout()" type="button">
+        <span class="material-symbols-outlined">logout</span>
+        <span>Logout</span>
+      </button>
+      <button class="menu-toggle" (click)="toggleMenu()" type="button" [attr.aria-expanded]="isMenuOpen" aria-label="Toggle menu">
+        <span [class.active]="isMenuOpen"></span>
+        <span [class.active]="isMenuOpen"></span>
+        <span [class.active]="isMenuOpen"></span>
+      </button>
+    </div>
+  </div>
+</nav>

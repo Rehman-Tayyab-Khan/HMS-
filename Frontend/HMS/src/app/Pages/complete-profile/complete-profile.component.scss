@@ -1,0 +1,108 @@
+@use 'theme/index' as *;
+
+.complete-profile-container {
+  min-height: 100vh;
+  @include flex-center;
+  background: $bg-pattern-primary;
+  padding: $space-6;
+}
+
+.complete-profile-card {
+  @include card;
+  width: 100%;
+  max-width: 800px;
+  padding: $space-10;
+  box-shadow: $shadow-xl;
+  border-radius: $radius-xl;
+  max-height: 90vh;
+  overflow-y: auto;
+  @include custom-scrollbar;
+}
+
+.complete-profile-header {
+  text-align: center;
+  margin-bottom: $space-8;
+
+  h1 {
+    color: $gray-900;
+    font-size: $text-4xl;
+    font-weight: $font-semibold;
+    margin-bottom: $space-2;
+  }
+
+  p {
+    color: $gray-600;
+    font-size: $text-base;
+  }
+}
+
+.profile-form {
+  .form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: $space-6;
+
+    @include respond-to('sm') {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .form-group {
+    margin-bottom: $space-6;
+
+    label {
+      display: block;
+      margin-bottom: $space-2;
+      color: $gray-800;
+      font-weight: $font-medium;
+      font-size: $text-sm;
+    }
+
+    .form-control {
+      @include input-base;
+    }
+
+    select.form-control {
+      cursor: pointer;
+    }
+
+    .error-message {
+      color: $error-base;
+      font-size: $text-xs;
+      margin-top: $space-1;
+      display: block;
+    }
+
+    .address-group {
+      .form-row {
+        margin-top: $space-2;
+      }
+    }
+  }
+
+  .error-message {
+    background: $error-light;
+    color: $error-base;
+    padding: $space-3;
+    border-radius: $radius-md;
+    margin-bottom: $space-6;
+    font-size: $text-sm;
+    border: $border-width-1 solid $error-light;
+  }
+
+  .btn {
+    width: 100%;
+    @include button-base;
+    padding: $space-4;
+
+    &.btn-primary {
+      background: $primary-base;
+      color: $white;
+
+      &:hover:not(:disabled) {
+        background: $primary-dark;
+        @include hover-lift;
+      }
+    }
+  }
+}
